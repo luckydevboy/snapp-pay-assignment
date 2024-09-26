@@ -15,7 +15,6 @@ export const useGetPassengers = ({
       getPassengers({ limit: pageSize, skip: pageParam }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.meta.skipped + pageSize,
-    select: (res) => res.pages.flatMap((page) => page.items),
   });
 };
 
