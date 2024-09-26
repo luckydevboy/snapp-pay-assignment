@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button, Sheet, SheetContent, SheetTrigger } from "@/components/ui";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
+import { ModeToggle } from "@/components";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,24 +17,30 @@ const Header = () => {
 
   return (
     <header className="container mx-auto flex h-14 items-center sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mr-4 hidden md:flex">
-        <Link to="/" className="mr-6 flex items-center space-x-2">
-          <span className="hidden font-bold sm:inline-block">Contacts</span>
-        </Link>
-        <nav className="flex items-center space-x-6 text-sm font-medium">
-          <NavLinks />
-        </nav>
+      <div className="hidden md:flex md:justify-between w-full">
+        <div className="flex">
+          <Link to="/" className="mr-6 flex items-center space-x-2">
+            <span className="hidden font-bold sm:inline-block">Contacts</span>
+          </Link>
+          <nav className="flex items-center space-x-6 text-sm font-medium">
+            <NavLinks />
+          </nav>
+        </div>
+        <ModeToggle />
       </div>
       <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <SheetTrigger asChild>
-          <Button
-            variant="ghost"
-            className="text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-          >
-            <MenuIcon className="h-6 w-6" />
-            <span className="sr-only">Toggle Menu</span>
-          </Button>
-        </SheetTrigger>
+        <div className="flex items-center justify-between w-full md:hidden px-4 md:px-0">
+          <SheetTrigger className="px-0" asChild>
+            <Button
+              variant="ghost"
+              className="text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+            >
+              <MenuIcon className="h-6 w-6" />
+              <span className="sr-only">Toggle Menu</span>
+            </Button>
+          </SheetTrigger>
+          <ModeToggle />
+        </div>
         <SheetContent side="left" className="pr-0">
           <nav className="flex flex-col gap-4 text-lg font-medium">
             <NavLinks />
