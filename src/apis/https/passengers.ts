@@ -1,10 +1,12 @@
 import ky from "./kyInstance";
 import { PassengerDto, ResponseDto } from "@/apis";
 
-export const getPassengers = (limit: number, skip: number) =>
-  ky
+export const getPassengers = (params: { limit: number; skip: number }) => {
+  const { limit, skip } = params;
+  return ky
     .get<ResponseDto<PassengerDto>>(`passenger?limit=${limit}&skip=${skip}`)
     .json();
+};
 
 export const getPassenger = (id: number) =>
   ky.get<PassengerDto>(`passenger/${id}`).json();

@@ -1,6 +1,7 @@
 import { RouteObject } from "react-router-dom";
 
-import { Contact, Root } from "@/components/pages";
+import { Contact, Home } from "@/components/pages";
+import { Root } from "@/components";
 
 const routes: RouteObject[] = [
   {
@@ -9,6 +10,10 @@ const routes: RouteObject[] = [
     // TODO: add error page
     errorElement: <>Not found!</>,
     children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
       {
         path: "/contacts/:id",
         element: <Contact />,

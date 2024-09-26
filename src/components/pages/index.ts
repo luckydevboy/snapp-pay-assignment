@@ -1,2 +1,2 @@
 export { default as Contact } from "./contact";
-export { default as Root } from "./root";
+export { default as Home } from "./home";
