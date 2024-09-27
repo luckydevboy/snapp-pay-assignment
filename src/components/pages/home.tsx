@@ -3,6 +3,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 
 import { useGetPassengers } from "@/apis";
 import { ContactCard, FrequentList } from "@/components";
+import { Separator } from "@/components/ui";
 
 const Home = () => {
   const {
@@ -32,11 +33,11 @@ const Home = () => {
 
   const updateColumnCount = () => {
     const width = window.innerWidth;
-    if (width >= 1200) {
+    if (width >= 1024) {
       setColumnCount(4);
-    } else if (width >= 900) {
+    } else if (width >= 768) {
       setColumnCount(3);
-    } else if (width >= 600) {
+    } else if (width >= 640) {
       setColumnCount(2);
     } else {
       setColumnCount(1);
@@ -86,6 +87,9 @@ const Home = () => {
   return (
     <>
       <FrequentList contacts={frequents} />
+      <div className="pr-6">
+        <Separator className="my-6" />
+      </div>
       {status === "pending" ? (
         <p>Loading...</p>
       ) : status === "error" ? (
