@@ -90,7 +90,7 @@ const Home = () => {
       ) : (
         <div
           ref={parentRef}
-          className="custom-scroll"
+          className="custom-scrollbar"
           style={{
             height: `calc(100vh - 56px - 48px)`,
             width: `100%`,

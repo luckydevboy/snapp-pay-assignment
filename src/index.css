@@ -65,4 +65,16 @@
   }
 }
 
-/* TODO: implement custom scrollbar */
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: hsl(var(--background));
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--secondary));
+  border-radius: 20px;
+}
