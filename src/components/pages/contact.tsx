@@ -11,6 +11,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 import {
   Avatar,
@@ -25,12 +26,54 @@ import {
   Label,
   Separator,
 } from "../ui";
-import { useGetPassenger } from "@/apis";
+import { PassengerDto, useGetPassenger } from "@/apis";
 
 const Contact = () => {
   const params = useParams();
   const navigate = useNavigate();
   const { data: passenger, status, error } = useGetPassenger(Number(params.id));
+
+  useEffect(() => {
+    if (passenger) {
+      updateFrequentContacts(passenger);
+    }
+  }, [passenger]);
+
+  const updateFrequentContacts = (contact: PassengerDto) => {
+    let frequentContacts: (PassengerDto & {
+      visitCount: number;
+      lastVisited: number;
+    })[] = JSON.parse(localStorage.getItem("frequents")!) || [];
+
+    const contactIndex = frequentContacts.findIndex((c) => c.id === contact.id);
+
+    if (contactIndex >= 0) {
+      frequentContacts[contactIndex].visitCount += 1;
+      frequentContacts[contactIndex].lastVisited = Date.now();
+    } else {
+      frequentContacts.push({
+        ...contact,
+        visitCount: 1,
+        lastVisited: Date.now(),
+      });
+    }
+
+    frequentContacts.sort((a, b) => {
+      const scoreA = calculateScore(a.visitCount, a.lastVisited);
+      const scoreB = calculateScore(b.visitCount, b.lastVisited);
+      return scoreB - scoreA;
+    });
+
+    frequentContacts = frequentContacts.slice(0, 4);
+
+    localStorage.setItem("frequents", JSON.stringify(frequentContacts));
+  };
+
+  const calculateScore = (visitCount: number, lastVisited: number) => {
+    const timeSinceLastVisit = Date.now() - lastVisited;
+    const decayFactor = 1 / (timeSinceLastVisit + 1);
+    return visitCount * decayFactor;
+  };
 
   return (
     <>
@@ -51,8 +94,8 @@ const Contact = () => {
                       alt={`${passenger.first_name} ${passenger.last_name}`}
                     />
                     <AvatarFallback>
-                      {passenger.first_name}
-                      {passenger.last_name}
+                      {passenger.first_name[0]}
+                      {passenger.last_name[0]}
                     </AvatarFallback>
                   </Avatar>
                   <div>

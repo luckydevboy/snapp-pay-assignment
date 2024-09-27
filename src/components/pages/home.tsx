@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 
 import { useGetPassengers } from "@/apis";
-import { ContactCard } from "@/components";
+import { ContactCard, FrequentList } from "@/components";
 
 const Home = () => {
   const {
@@ -14,6 +14,14 @@ const Home = () => {
     isFetchingNextPage,
     isFetching,
   } = useGetPassengers();
+  const [frequents, setFrequents] = useState([]);
+
+  useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem("frequents")!);
+    if (storedFavorites) {
+      setFrequents(storedFavorites);
+    }
+  }, []);
 
   const allRows = data ? data.pages.flatMap((d) => d.items) : [];
 
@@ -77,6 +85,7 @@ const Home = () => {
 
   return (
     <>
+      <FrequentList contacts={frequents} />
       {status === "pending" ? (
         <p>Loading...</p>
       ) : status === "error" ? (

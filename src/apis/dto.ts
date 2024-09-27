@@ -3,6 +3,7 @@ export interface ResponseDto<T> {
   items: T[];
 }
 
+// TODO: generate mapper
 export interface PassengerDto {
   first_name: string;
   last_name: string;

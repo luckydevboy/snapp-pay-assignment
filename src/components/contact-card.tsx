@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -6,9 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui";
 import { IPassenger } from "@/lib/interface.ts";
-import { Link } from "react-router-dom";
 
 type Props = {
+  // TODO: replace passenger by contact
   passenger: IPassenger;
 };
 
@@ -20,7 +21,7 @@ const ContactCard = ({ passenger }: Props) => {
           <CardTitle>
             {passenger.first_name} {passenger.last_name}
           </CardTitle>
-          <CardDescription>{passenger.company}</CardDescription>
+          <CardDescription>{passenger.company ?? "---"}</CardDescription>
         </CardHeader>
         <CardContent>
           <div>{passenger.phone}</div>
