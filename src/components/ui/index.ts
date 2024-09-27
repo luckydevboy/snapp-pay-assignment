@@ -4,4 +4,6 @@ export * from "./sheet";
 export * from "./card";
 export * from "./avatar";
 export * from "./badge";
+export * from "./label";
+export * from "./separator";
 export * from "./dropdown-menu";

@@ -2,13 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 
 import { useGetPassengers } from "@/apis";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui";
+import { ContactCard } from "@/components";
 
 const Home = () => {
   const {
@@ -120,19 +114,7 @@ const Home = () => {
                       const passenger = allRows[startIndex + idx];
 
                       return passenger ? (
-                        <Card key={passenger.id}>
-                          <CardHeader>
-                            <CardTitle>
-                              {passenger.first_name} {passenger.last_name}
-                            </CardTitle>
-                            <CardDescription>
-                              {passenger.company}
-                            </CardDescription>
-                          </CardHeader>
-                          <CardContent>
-                            <div>{passenger.phone}</div>
-                          </CardContent>
-                        </Card>
+                        <ContactCard key={passenger.id} passenger={passenger} />
                       ) : null;
                     },
                   )}
