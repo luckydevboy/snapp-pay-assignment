@@ -14,7 +14,16 @@ export const useGetPassengers = ({
     queryFn: ({ pageParam }) =>
       getPassengers({ limit: pageSize, skip: pageParam }),
     initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.meta.skipped + pageSize,
+    getNextPageParam: (lastPage) => {
+      const { skipped, total } = lastPage.meta;
+      const nextPage = skipped + pageSize;
+
+      if (nextPage >= total) {
+        return undefined;
+      }
+
+      return nextPage;
+    },
   });
 };
 
