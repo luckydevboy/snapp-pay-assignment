@@ -16,7 +16,7 @@ const Header = () => {
   );
 
   return (
-    <header className="container mx-auto flex h-14 items-center sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="container px-4 sm:px-0 mx-auto flex h-14 items-center sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="hidden md:flex md:justify-between w-full">
         <div className="flex">
           <Link to="/" className="mr-6 flex items-center space-x-2">
@@ -29,7 +29,7 @@ const Header = () => {
         <ModeToggle />
       </div>
       <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <div className="flex items-center justify-between w-full md:hidden px-4 md:px-0">
+        <div className="flex items-center justify-between w-full md:hidden">
           <SheetTrigger className="px-0" asChild>
             <Button
               variant="ghost"
