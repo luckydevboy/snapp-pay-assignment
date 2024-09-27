@@ -90,18 +90,13 @@ const Home = () => {
       ) : (
         <div
           ref={parentRef}
-          className="custom-scrollbar"
-          style={{
-            height: `calc(100vh - 56px - 48px)`,
-            width: `100%`,
-            overflow: "auto",
-          }}
+          className="custom-scrollbar h-[calc(100vh-56px-48px)] w-full overflow-y-auto"
         >
           <div
             style={{
               height: `${rowVirtualizer.getTotalSize()}px`,
-              position: "relative",
             }}
+            className="relative"
           >
             {rowVirtualizer.getVirtualItems().map((virtualRow) => {
               const startIndex = virtualRow.index * columnCount;
@@ -113,17 +108,11 @@ const Home = () => {
               return (
                 <div
                   key={virtualRow.index}
+                  className="absolute top-0 left-0 w-full grid gap-x-4 pr-4"
                   style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
                     height: `${virtualRow.size - rowGap}px`,
                     transform: `translateY(${virtualRow.start}px)`,
-                    display: "grid",
                     gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
-                    columnGap: "1rem",
-                    paddingRight: "1rem",
                   }}
                 >
                   {Array.from({ length: endIndex - startIndex }).map(
