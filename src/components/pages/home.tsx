@@ -147,9 +147,6 @@ const Home = () => {
           </div>
         </div>
       )}
-      <div>
-        {isFetching && !isFetchingNextPage ? "Background Updating..." : null}
-      </div>
     </>
   );
 };
