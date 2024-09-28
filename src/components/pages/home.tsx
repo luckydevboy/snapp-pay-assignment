@@ -20,7 +20,6 @@ const Home = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isFetching,
   } = useGetPassengers({
     where: { first_name: firstName, last_name: lastName, phone },
   });
@@ -99,6 +98,8 @@ const Home = () => {
         <p>Loading...</p>
       ) : status === "error" ? (
         <span>Error: {error.message}</span>
+      ) : !allRows.length ? (
+        "No contact found!"
       ) : (
         <div
           ref={parentRef}
