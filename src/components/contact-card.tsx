@@ -6,11 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui";
-import { IPassenger } from "@/lib/interface.ts";
+import { PassengerDto } from "@/apis";
 
 type Props = {
-  // TODO: replace passenger by contact
-  passenger: IPassenger;
+  passenger: PassengerDto;
 };
 
 const ContactCard = ({ passenger }: Props) => {
