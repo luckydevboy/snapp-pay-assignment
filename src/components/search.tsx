@@ -4,7 +4,6 @@ import { useDebounce } from "use-debounce";
 import { useSearchParams } from "react-router-dom";
 
 import { Input } from "@/components/ui";
-import { useGetSearchPassengers } from "@/apis";
 
 type Props = {
   className?: string;
@@ -12,7 +11,7 @@ type Props = {
 
 const Search = ({ className }: Props) => {
   const [search, setSearch] = useState("");
-  const [value, { isPending }] = useDebounce(search, 500);
+  const [value] = useDebounce(search, 500);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -28,6 +27,24 @@ const Search = ({ className }: Props) => {
     }
     setSearchParams(paramsObj);
   }, [value]);
+
+  useEffect(() => {
+    const paramsObj = new URLSearchParams();
+
+    if (searchParams.get("first_name")) {
+      paramsObj.append("first_name", searchParams.get("first_name")!);
+    }
+
+    if (searchParams.get("last_name")) {
+      paramsObj.append("last_name", paramsObj.get("last_name")!);
+    }
+
+    if (searchParams.get("phone")) {
+      paramsObj.append("phone", searchParams.get("phone")!);
+    }
+
+    setSearchParams(paramsObj);
+  }, []);
 
   return (
     <div className={cx("relative", className)}>

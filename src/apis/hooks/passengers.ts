@@ -1,24 +1,26 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { getPassenger, getPassengers, getSearchPassengers } from "@/apis/https";
+import { getPassenger, getPassengers } from "@/apis/https";
 
 export const useGetPassengers = ({
-  sort = "createdAt DESC",
+  sort,
   where,
   page = 1,
   pageSize = 30,
 }: {
-  where: {
-    or: { [key: string]: { contains: string } }[];
+  where?: {
+    first_name?: string;
+    last_name?: string;
+    phone?: string;
   };
   sort?: string;
   page?: number;
   pageSize?: number;
-}) => {
+} = {}) => {
   return useInfiniteQuery({
     queryKey: ["passenger", where, sort, page, pageSize],
     queryFn: ({ pageParam }) =>
-      getPassengers({ limit: pageSize, skip: pageParam }),
+      getPassengers({ limit: pageSize, skip: pageParam, where, sort }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       const { skipped, total } = lastPage.meta;

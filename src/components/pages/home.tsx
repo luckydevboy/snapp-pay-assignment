@@ -1,10 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { useSearchParams } from "react-router-dom";
 
 import { useGetPassengers } from "@/apis";
 import { ContactCard, FrequentList } from "@/components";
 
 const Home = () => {
+  const [frequents, setFrequents] = useState([]);
+  const [searchParams] = useSearchParams();
+
+  const firstName = searchParams.get("first_name") || undefined;
+  const lastName = searchParams.get("last_name") || undefined;
+  const phone = searchParams.get("phone") || undefined;
+
   const {
     data,
     status,
@@ -13,8 +21,9 @@ const Home = () => {
     hasNextPage,
     isFetchingNextPage,
     isFetching,
-  } = useGetPassengers();
-  const [frequents, setFrequents] = useState([]);
+  } = useGetPassengers({
+    where: { first_name: firstName, last_name: lastName, phone },
+  });
 
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem("frequents")!);
