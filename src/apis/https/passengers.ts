@@ -13,8 +13,7 @@ export const getPassenger = (id: number) =>
 
 export const getSearchPassengers = (params: {
   where: {
-    first_name?: { contains: string };
-    last_name?: { contains: string };
+    or: { [key: string]: { contains: string } }[];
   };
   sort: string;
   page: number;
@@ -28,6 +27,6 @@ export const getSearchPassengers = (params: {
   return ky
     .get<
       ResponseDto<PassengerDto>
-    >(`passenger/?where=${where}&sort=${sort}&limit=${limit}&skip=${skip}`)
+    >(`passenger/?where=${JSON.stringify(where)}&sort=${sort}&limit=${limit}&skip=${skip}`)
     .json();
 };

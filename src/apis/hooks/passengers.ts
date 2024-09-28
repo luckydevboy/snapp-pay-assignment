@@ -40,8 +40,7 @@ export const useGetSearchPassengers = ({
   pageSize = 10,
 }: {
   where: {
-    first_name?: { contains: string };
-    last_name?: { contains: string };
+    or: { [key: string]: { contains: string } }[];
   };
   sort?: string;
   page?: number;
@@ -50,5 +49,6 @@ export const useGetSearchPassengers = ({
   return useQuery({
     queryKey: ["passenger", where, page, pageSize, sort],
     queryFn: () => getSearchPassengers({ where, sort, page, pageSize }),
+    enabled: Boolean(Object.values(where.or[0])[0].contains),
   });
 };
