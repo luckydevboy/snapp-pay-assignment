@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useSearchParams } from "react-router-dom";
 
@@ -8,6 +8,14 @@ import { ContactCard, FrequentList } from "@/components";
 const Home = () => {
   const [frequents, setFrequents] = useState([]);
   const [searchParams] = useSearchParams();
+  const frequentListRef = useRef<HTMLDivElement>(null);
+  const [frequentListHeight, setFrequentListHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (frequentListRef.current) {
+      setFrequentListHeight(frequentListRef.current.offsetHeight);
+    }
+  }, [frequents]);
 
   const firstName = searchParams.get("first_name") || undefined;
   const lastName = searchParams.get("last_name") || undefined;
@@ -93,7 +101,7 @@ const Home = () => {
 
   return (
     <>
-      <FrequentList contacts={frequents} />
+      <FrequentList ref={frequentListRef} contacts={frequents} />
       {status === "pending" ? (
         <p>Loading...</p>
       ) : status === "error" ? (
@@ -103,7 +111,10 @@ const Home = () => {
       ) : (
         <div
           ref={parentRef}
-          className="custom-scrollbar h-[calc(100vh-56px-48px)] w-full overflow-y-auto"
+          className="custom-scrollbar w-full overflow-y-auto"
+          style={{
+            height: `calc(100vh - ${frequentListHeight}px - 128px)`,
+          }}
         >
           <div
             style={{
