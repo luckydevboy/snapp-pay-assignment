@@ -25,8 +25,10 @@ const Search = ({ className }: Props) => {
     const firstName = searchParams.get("first_name") ?? "";
     const phone = searchParams.get("phone") ?? "";
 
-    setSearch(firstName || phone);
-  }, [searchParams]);
+    if (!search) {
+      setSearch(firstName || phone);
+    }
+  }, []);
 
   return (
     <div className={cx("relative", className)}>
