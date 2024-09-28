@@ -3,7 +3,6 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 
 import { useGetPassengers } from "@/apis";
 import { ContactCard, FrequentList } from "@/components";
-import { Separator } from "@/components/ui";
 
 const Home = () => {
   const {
@@ -87,9 +86,6 @@ const Home = () => {
   return (
     <>
       <FrequentList contacts={frequents} />
-      <div className="pr-6">
-        <Separator className="my-6" />
-      </div>
       {status === "pending" ? (
         <p>Loading...</p>
       ) : status === "error" ? (

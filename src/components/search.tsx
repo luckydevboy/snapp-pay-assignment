@@ -14,25 +14,19 @@ const Search = ({ className }: Props) => {
   const [search, setSearch] = useState("");
   const [value, { isPending }] = useDebounce(search, 500);
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams);
-  // useGetSearchPassengers({ where: searchParams.get('where') });
 
   useEffect(() => {
+    const paramsObj = new URLSearchParams();
+
     if (value) {
-      setSearchParams(
-        JSON.stringify({
-          where: {
-            or: [
-              { first_name: { contains: value } },
-              { last_name: { contains: value } },
-              { phone: { contains: value } },
-            ],
-          },
-        }),
-      );
-    } else {
-      setSearchParams();
+      if (/[a-z]+/.test(value)) {
+        paramsObj.append("first_name", value);
+        paramsObj.append("last_name", value);
+      } else if (/[0-9]+/.test(value)) {
+        paramsObj.append("phone", value);
+      }
     }
+    setSearchParams(paramsObj);
   }, [value]);
 
   return (

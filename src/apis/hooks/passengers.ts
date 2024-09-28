@@ -3,14 +3,20 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getPassenger, getPassengers, getSearchPassengers } from "@/apis/https";
 
 export const useGetPassengers = ({
+  sort = "createdAt DESC",
+  where,
   page = 1,
   pageSize = 30,
 }: {
+  where: {
+    or: { [key: string]: { contains: string } }[];
+  };
+  sort?: string;
   page?: number;
   pageSize?: number;
-} = {}) => {
+}) => {
   return useInfiniteQuery({
-    queryKey: ["passenger", page, pageSize],
+    queryKey: ["passenger", where, sort, page, pageSize],
     queryFn: ({ pageParam }) =>
       getPassengers({ limit: pageSize, skip: pageParam }),
     initialPageParam: 0,
@@ -32,23 +38,3 @@ export const useGetPassenger = (id: number) =>
     queryKey: ["passenger", id],
     queryFn: () => getPassenger(id),
   });
-
-export const useGetSearchPassengers = ({
-  sort = "createdAt DESC",
-  where,
-  page = 1,
-  pageSize = 10,
-}: {
-  where: {
-    or: { [key: string]: { contains: string } }[];
-  };
-  sort?: string;
-  page?: number;
-  pageSize?: number;
-}) => {
-  return useQuery({
-    queryKey: ["passenger", where, page, pageSize, sort],
-    queryFn: () => getSearchPassengers({ where, sort, page, pageSize }),
-    enabled: Boolean(Object.values(where.or[0])[0].contains),
-  });
-};

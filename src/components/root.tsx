@@ -4,11 +4,9 @@ import { Layout } from "@/components/index.ts";
 
 const Root = () => {
   return (
-    <>
-      <Layout>
-        <Outlet />
-      </Layout>
-    </>
+    <Layout>
+      <Outlet />
+    </Layout>
   );
 };
 
