@@ -9,21 +9,21 @@ import {
 import { PassengerDto } from "@/apis";
 
 type Props = {
-  passenger: PassengerDto;
+  contact: PassengerDto;
 };
 
-const ContactCard = ({ passenger }: Props) => {
+const ContactCard = ({ contact }: Props) => {
   return (
-    <Link to={`/contacts/${passenger.id}`}>
+    <Link to={`/contacts/${contact.id}`}>
       <Card className="hover:border-primary cursor-pointer transition-colors">
         <CardHeader>
           <CardTitle>
-            {passenger.first_name} {passenger.last_name}
+            {contact.first_name} {contact.last_name}
           </CardTitle>
-          <CardDescription>{passenger.company ?? "---"}</CardDescription>
+          <CardDescription>{contact.company ?? "---"}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div>{passenger.phone}</div>
+          <div>{contact.phone}</div>
         </CardContent>
       </Card>
     </Link>

@@ -130,10 +130,10 @@ const Home = () => {
                 >
                   {Array.from({ length: endIndex - startIndex }).map(
                     (_, idx) => {
-                      const passenger = allRows[startIndex + idx];
+                      const contact = allRows[startIndex + idx];
 
-                      return passenger ? (
-                        <ContactCard key={passenger.id} passenger={passenger} />
+                      return contact ? (
+                        <ContactCard key={contact.id} contact={contact} />
                       ) : null;
                     },
                   )}
