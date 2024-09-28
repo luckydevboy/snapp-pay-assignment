@@ -73,7 +73,6 @@ const Home = () => {
       : Math.ceil(allRows.length / columnCount),
     getScrollElement: () => parentRef.current,
     estimateSize: () => 140 + rowGap,
-    overscan: 5,
   });
 
   useEffect(() => {
