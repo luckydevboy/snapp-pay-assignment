@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button, Sheet, SheetContent, SheetTrigger } from "@/components/ui";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
-import { ModeToggle } from "@/components";
+import { ModeToggle, Search } from "@/components";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +25,7 @@ const Header = () => {
           <nav className="flex items-center space-x-6 text-sm font-medium">
             <NavLinks />
           </nav>
+          <Search className="ml-6 w-96" />
         </div>
         <ModeToggle />
       </div>
