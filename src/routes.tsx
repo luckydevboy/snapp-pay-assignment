@@ -7,8 +7,7 @@ const routes: RouteObject[] = [
   {
     path: "/",
     element: <Root />,
-    // TODO: add error page
-    errorElement: <>Not found!</>,
+    errorElement: <div className="p-4">Not found!</div>,
     children: [
       {
         path: "/",
