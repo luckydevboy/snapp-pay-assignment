@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { useGetPassengers } from "@/apis";
 import { ContactCard, FrequentList } from "@/components";
+import { Skeleton } from "@/components/ui/skeleton.tsx";
 
 const Home = () => {
   const [frequents, setFrequents] = useState([]);
@@ -102,9 +103,18 @@ const Home = () => {
     <>
       <FrequentList ref={frequentListRef} contacts={frequents} />
       {status === "pending" ? (
-        <p>Loading...</p>
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pr-6 rounded-xl custom-scrollbar overflow-y-auto"
+          style={{
+            height: `calc(100vh - ${frequentListHeight}px - 128px)`,
+          }}
+        >
+          {Array.from({ length: 32 }).map(() => (
+            <Skeleton className="w-full h-[140px]" />
+          ))}
+        </div>
       ) : status === "error" ? (
-        <span>Error: {error.message}</span>
+        <div>Error: {error.message}</div>
       ) : !allRows.length ? (
         "No contact found!"
       ) : (
