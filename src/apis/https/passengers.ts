@@ -1,4 +1,4 @@
-import ky from "./kyInstance";
+import ky from "./ky-instance.ts";
 import { PassengerDto, ResponseDto } from "@/apis";
 
 export const getPassengers = ({

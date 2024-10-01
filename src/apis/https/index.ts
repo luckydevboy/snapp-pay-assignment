@@ -1,3 +1,3 @@
-export { default as ky } from "./kyInstance";
+export { default as ky } from "./ky-instance.ts";
 
 export * from "./passengers";
